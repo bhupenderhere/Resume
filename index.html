@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Resume" />
+        <meta name="author" content="Bhupender" />
+        <meta name="keywords" content="HTML, CSS, JavaScript, Resume, Bhupender, bhupenderhere" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="generator" content="VS Code" />
+        <meta name="rating" content="General" />
+        <meta name="distribution" content="Global" />
+        <meta name="web_author" content="Bhupender" />
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' class='bi bi-file-earmark-person' viewBox='0 0 16 16'%3E%3Cpath d='M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0'/%3E%3Cpath d='M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5z'/%3E%3C/svg%3E" />
+        <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' class='bi bi-file-earmark-person' viewBox='0 0 16 16'%3E%3Cpath d='M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0'/%3E%3Cpath d='M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5z'/%3E%3C/svg%3E" />
+        <meta property="og:title" content="Resume" />
+        <meta property="og:description" content="Resume" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://github.com/bhupenderhere" />
+        <meta property="og:image" content="https://github.com/bhupenderhere" />
+        <meta property="og:image:alt" content="Resume" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Resume" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@bhupenderhere" />
+        <meta name="twitter:creator" content="@bhupenderhere" />
+        <meta name="twitter:title" content="Resume" />
+        <meta name="twitter:description" content="Resume" />
+        <meta name="twitter:image" content="https://github.com/bhupenderhere" />
+        <meta name="twitter:image:alt" content="Resume" />
+        <meta name="twitter:domain" content="bhupenderhere" />
+        <meta name="twitter:url" content="https://github.com/bhupenderhere" />
+        <title>Resume | Bhupender</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                letter-spacing: 1px;
+                box-sizing: border-box;
+                font-family: "PT Sans", sans-serif;
+            }
+            body {
+                padding: 2rem 20rem;
+                background-color: white;
+            }
+            #resume {
+                padding: 2rem 1rem;
+                border: 1px solid black;
+                background-color: white;
+            }
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+            ul, ol {
+                list-style: none;
+            }
+            div, h1, p, ul, ol, li {
+                padding: 0 0.5rem;
+            }
+            hr {
+                margin: 1rem 0;
+            }
+            @media screen and (max-width: 1300px){
+                body {
+                    padding: 2rem 10rem;
+                }                
+            }
+            @media screen and (max-width: 1043px){
+                body {
+                    padding: 0;
+                }
+                #resume {
+                    border: none;
+                    padding: 1rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="resume"></div>
+        <script type="text/javascript">
+            window.addEventListener("load", () => {
+                fetch("https://raw.githubusercontent.com/bhupenderhere/Resume/main/Readme.md")
+                    .then((res) => res.text())
+                    .then((text) => {
+                        let markdownText = text;
+                        let storedMarkdownText = sessionStorage.getItem("markdownText");
+                        if (markdownText !== storedMarkdownText) {
+                            return fetch("https://api.github.com/markdown", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "text/plain"
+                                },
+                                body: JSON.stringify({
+                                    text: markdownText,
+                                    mode: "markdown",
+                                }),
+                            })
+                                .then((res) => res.text())
+                                .then((htmlContent) => {
+                                    sessionStorage.setItem("markdownText", text);
+                                    sessionStorage.setItem("htmlContent", htmlContent);
+                                    document.getElementById("resume").innerHTML = htmlContent;
+                                });
+                        } else {
+                            let htmlContent = sessionStorage.getItem("htmlContent");
+                            document.getElementById("resume").innerHTML = htmlContent;
+                        }
+                    })
+                    .catch((error) => console.error("Error:", error));
+            });
+        </script>
+        <noscript>
+            <h1>Enable Javascript To View This Page.</h1>
+        </noscript>
+    </body>
+</html>
